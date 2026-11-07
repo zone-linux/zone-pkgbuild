@@ -1,0 +1,7 @@
+post_install() {
+    /usr/bin/zone-grub-apply || true
+}
+
+post_upgrade() {
+    /usr/bin/zone-grub-apply || true
+}

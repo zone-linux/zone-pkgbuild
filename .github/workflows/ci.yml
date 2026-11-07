@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  lint:
+    name: Lint PKGBUILDs and build scripts
+    runs-on: ubuntu-latest
+    container: archlinux:latest
+    steps:
+      - name: Install tooling
+        run: pacman -Syu --noconfirm --needed bash git python shellcheck namcap
+
+      - uses: actions/checkout@v4
+
+      - name: Bash syntax
+        run: |
+          mapfile -t files < <(find . -type f \( -name '*.sh' -o -name PKGBUILD \) \
+            -not -path './.git/*' -not -path './3rdparty_pkgbuild/3rdparty/*')
+          for file in "${files[@]}"; do
+            bash -n "$file"
+          done
+          echo "checked ${#files[@]} file(s)"
+
+      - name: shellcheck
+        run: shellcheck -S warning build.sh publish.sh lib/*.sh 3rdparty_pkgbuild/get-pkgs.sh
+
+      - name: PKGBUILD metadata
+        run: python3 .github/scripts/check-pkgbuilds.py
+
+      - name: namcap PKGBUILDs
+        run: |
+          status=0
+          while IFS= read -r file; do
+            if ! namcap "$file"; then
+              status=1
+            fi
+          done < <(find core_pkgbuild local_pkgbuild -name PKGBUILD | sort)
+          exit "$status"
+
+      - name: AUR package list
+        run: python3 .github/scripts/check-aur.py

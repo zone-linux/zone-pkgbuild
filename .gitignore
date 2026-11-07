@@ -6,3 +6,4 @@ core-x86_64/
 3rdparty-x86_64/
 3rdparty_pkgbuild/3rdparty/
 **/.build-stamp
+*.log

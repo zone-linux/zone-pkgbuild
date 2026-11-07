@@ -1,16 +1,19 @@
+# AUR packages built into zone-3party-repo.
+# Keep this list limited to packages that are not available in the Arch repos.
+# `cava`, `ttf-jetbrains-mono-nerd`, and the other official packages belong in
+# zone-iso/archiso/packages.x86_64 instead.
+
+calamares
 ani-cli-git
-cava
 ckbcomp
 grub2-theme-preview
 kvantum-theme-qogir-git
 minecraft-launcher
 mkinitcpio-openswap
-nerd-fonts-jetbrains-mono
 oh-my-zsh-git
 paru-bin
 qogir-icon-theme-git
 qogir-gtk-theme-git
-shell-color-scripts
 tty-clock-git
 ulauncher
 unimatrix-git

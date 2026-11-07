@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+[[ -d /boot/grub ]] || exit 0
+command -v grub-mkconfig >/dev/null 2>&1 || exit 0
+
+grub-mkconfig -o /boot/grub/grub.cfg

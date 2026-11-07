@@ -1,19 +1,16 @@
 # Maintainer: Gabriel Matthews <matthewriel63@gmail.com>
 
 pkgname=zone-fonts
-_pkgname=fonts
 _destname1="/usr/share/fonts/TTF"
 pkgver=1.0
 pkgrel=1
 pkgdesc="Fonts for The Zone"
-arch=('x86_64')
+arch=('any')
 url="https://github.com/zone-linux/zone-pkgbuild/local_pkgbuild/zone-fonts"
 license=('MIT')
-provides=("${pkgname}")
-options=(!strip !emptydirs)
+options=(!strip !debug !emptydirs)
 
 package() {
-    install -dm755 ${pkgdir}${_destname1}
-    
-    cp -r ../${_pkgname}/* ${pkgdir}${_destname1}
+    install -dm755 "${pkgdir}${_destname1}"
+    cp -a "${startdir}/fonts/." "${pkgdir}${_destname1}/"
 }

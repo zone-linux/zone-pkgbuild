@@ -1,22 +1,20 @@
 # Maintainer: Gabriel Matthews <matthewriel63@gmail.com>
 
 pkgname=zone-cursor-theme
-_pkgname=Zone
 _destname1="/etc/skel/.local/share/icons"
 _destname2="/usr/share/icons"
 pkgver=1.0
 pkgrel=1
 pkgdesc="Cursor Theme for The Zone."
-arch=('x86_64')
+arch=('any')
 url="https://github.com/zone-linux/zone-pkgbuild/local_pkgbuild/zone-cursor-theme"
 license=('MIT')
-provides=("${pkgname}")
-options=(!strip !emptydirs)
+options=(!strip !debug !emptydirs)
 
 package() {
-	install -dm755 ${pkgdir}${_destname1}
-        install -dm755 ${pkgdir}${_destname2}
+    install -dm755 "${pkgdir}${_destname1}"
+    install -dm755 "${pkgdir}${_destname2}"
 
-	cp -rf ../${_pkgname} ${pkgdir}${_destname1}
-        cp -rf ../${_pkgname} ${pkgdir}${_destname2}
+    cp -a "${startdir}/Zone" "${pkgdir}${_destname1}/"
+    cp -a "${startdir}/Zone" "${pkgdir}${_destname2}/"
 }

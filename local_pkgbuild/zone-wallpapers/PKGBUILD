@@ -3,17 +3,24 @@
 pkgname=zone-wallpapers
 _pkgname=zone
 _destname1="/usr/share/backgrounds"
-pkgver=1.0
+pkgver=r9.5e49a0d
 pkgrel=1
+epoch=1
 pkgdesc="Images that are taken from The Zone."
 arch=('x86_64')
 url="https://github.com/zone-linux/zone-wallpapers"
 license=('MIT')
 makedepends=('git')
 provides=("${pkgname}")
-options=(!strip !emptydirs)
-source=("git+$url.git")
+options=(!strip !emptydirs !debug)
+_srcbase="${ZONE_SRC_BASE:-https://github.com/zone-linux}"
+source=("${pkgname}::git+${_srcbase}/${pkgname}")
 sha256sums=('SKIP')
+
+pkgver() {
+    cd "${srcdir}/${pkgname}"
+    printf 'r%s.%s' "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
 
 package() {
 	install -dm755 ${pkgdir}${_destname1}

@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Apply the Zone GRUB defaults over the files owned by the grub package.
+# grub still owns these paths; this script only writes their contents.
+src=/usr/share/zone/grub
+[[ -f "$src/grub.default" && -f "$src/40_custom" ]] || exit 0
+
+install -Dm644 "$src/grub.default" /etc/default/grub
+install -Dm755 "$src/40_custom" /etc/grub.d/40_custom

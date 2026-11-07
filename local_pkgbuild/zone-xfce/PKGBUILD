@@ -6,18 +6,25 @@ _destname1="/etc/skel"
 _destname2="/usr/local/bin"
 _destname3="/usr/share/sounds/zone"
 _destname4="/usr/bin"
-pkgver=1.0
+pkgver=r97.b16d8f4
 pkgrel=1
+epoch=1
 pkgdesc="Desktop Environment that can withstand the Radiation in Center of The Zone."
 arch=('x86_64')
 url="https://github.com/zone-linux/zone-xfce"
 license=('MIT')
 makedepends=('git')
 provides=("${pkgname}")
-options=(!strip !emptydirs)
-source=("git+$url.git")
+options=(!strip !emptydirs !debug)
+_srcbase="${ZONE_SRC_BASE:-https://github.com/zone-linux}"
+source=("${pkgname}::git+${_srcbase}/${pkgname}")
 sha256sums=('SKIP')
 install="post.install"
+
+pkgver() {
+    cd "${srcdir}/${pkgname}"
+    printf 'r%s.%s' "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
 
 package() {
 	install -dm755 ${pkgdir}${_destname1}

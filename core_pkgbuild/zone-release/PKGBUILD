@@ -7,18 +7,15 @@ pkgdesc="Pacman hooks for the Zone to fix various system files."
 arch=('any')
 url="https://github.com/zone-linux/zone-pkgbuild/core_pkgbuild/zone-release"
 license=('MIT')
-
-prepare() {
-    cp -af ../files/* ${srcdir}
-}
+options=(!strip !debug !emptydirs)
 
 package() {
     local hooks=${pkgdir}/usr/share/libalpm/hooks
     local bin=${pkgdir}/usr/bin
 
-    install -Dm644 ${srcdir}/zone-hooks.hook              ${hooks}/zone-hooks.hook
-    install -Dm644 ${srcdir}/zone-lsb-release.hook        ${hooks}/zone-lsb-release.hook
-    install -Dm644 ${srcdir}/zone-os-release.hook         ${hooks}/zone-os-release.hook
+    install -Dm644 "${startdir}/files/zone-hooks.hook"        "${hooks}/zone-hooks.hook"
+    install -Dm644 "${startdir}/files/zone-lsb-release.hook"  "${hooks}/zone-lsb-release.hook"
+    install -Dm644 "${startdir}/files/zone-os-release.hook"   "${hooks}/zone-os-release.hook"
 
-    install -Dm755 ${srcdir}/zone-hooks-runner            ${bin}/zone-hooks-runner
+    install -Dm755 "${startdir}/files/zone-hooks-runner"      "${bin}/zone-hooks-runner"
 }

@@ -2,17 +2,30 @@
 
 pkgname=zone-grub-theme
 _pkgname=zone
-_destname1=/usr/share/grub/themes
 pkgver=1.0
-pkgrel=1
-pkgdesc="GRUB menu theme for The Zone"
+pkgrel=2
+pkgdesc="GRUB menu theme and configuration for The Zone"
 arch=('x86_64')
 url="https://github.com/zone-linux/zone-pkgbuild/core_pkgbuild/zone-grub-theme"
 license=('MIT')
-depends=(grub)
-provides=(${pkgname})
+depends=('grub')
+provides=("${pkgname}")
+install="${pkgname}.install"
+options=(!strip !debug !emptydirs)
 
 package() {
-    install -dm755 ${pkgdir}${_destname1}
-    cp -rf ../${_pkgname} ${pkgdir}${_destname1}
+    install -dm755 "${pkgdir}/usr/share/grub/themes"
+    cp -a "${startdir}/${_pkgname}" "${pkgdir}/usr/share/grub/themes/"
+
+    # grub owns /etc/default/grub and /etc/grub.d/40_custom, so the Zone
+    # versions are staged under /usr/share/zone/grub and applied by the
+    # install script / hook instead of being packaged as duplicate files.
+    install -Dm644 "${startdir}/grub.default" "${pkgdir}/usr/share/zone/grub/grub.default"
+    install -Dm755 "${startdir}/40_custom" "${pkgdir}/usr/share/zone/grub/40_custom"
+    install -Dm755 "${startdir}/zone-grub-update" "${pkgdir}/usr/bin/zone-grub-update"
+    install -Dm755 "${startdir}/zone-grub-apply" "${pkgdir}/usr/bin/zone-grub-apply"
+    install -Dm644 "${startdir}/90-zone-grub.hook" \
+        "${pkgdir}/usr/share/libalpm/hooks/90-zone-grub.hook"
+    install -Dm644 "${startdir}/91-zone-grub-config.hook" \
+        "${pkgdir}/usr/share/libalpm/hooks/91-zone-grub-config.hook"
 }
