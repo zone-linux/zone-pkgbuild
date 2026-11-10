@@ -2,7 +2,7 @@
 
 pkgname=stalker-metro-playlist
 pkgver=1.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Songs Played by Stalkers in The Zone"
 arch=('any')
 url='https://github.com/zone-linux/zone-pkgbuild/local_pkgbuild/zone-music/stalker-metro-playlist'
@@ -16,7 +16,7 @@ source=('stalker-metro-playlist.tar.gz')
 sha256sums=('9d5599b9e40912cd17006d569df8bfe3776fb111d0fa26aa5b8e49b5b52a8f84')
 
 package() {
-        install -dm755 ${pkgdir}/etc/skel/Music
+        install -dm755 "${pkgdir}/usr/share/zone/music"
 
-        cp -rf ${srcdir}/Stalker_Metro/ ${pkgdir}/etc/skel/Music/
+        cp -rf "${srcdir}/Stalker_Metro/" "${pkgdir}/usr/share/zone/music/"
 }

@@ -2,7 +2,7 @@
 
 pkgname=stalker-anomaly-playlist
 pkgver=1.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Songs Played by Stalkers in The Zone"
 arch=('any')
 url='https://github.com/zone-linux/zone-pkgbuild/local_pkgbuild/zone-music/stalker-anomaly-playlist'
@@ -16,7 +16,7 @@ source=('stalker-anomaly-playlist.tar.gz')
 sha256sums=('142fedd8dcd92d699147671d61089da8c58399c3488c7f60862843aeb697e740')
 
 package() {
-        install -dm755 ${pkgdir}/etc/skel/Music
+        install -dm755 "${pkgdir}/usr/share/zone/music"
 
-        cp -rf ${srcdir}/Stalker_Anomaly/ ${pkgdir}/etc/skel/Music/
+        cp -rf "${srcdir}/Stalker_Anomaly/" "${pkgdir}/usr/share/zone/music/"
 }
