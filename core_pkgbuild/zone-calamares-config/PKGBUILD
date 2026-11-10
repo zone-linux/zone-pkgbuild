@@ -1,7 +1,7 @@
 # Maintainer: Gabriel Matthews <matthewriel63@gmail.com>
 
 pkgname=zone-calamares-config
-pkgver=r28.800d727
+pkgver=r29.50ec8c8
 pkgrel=1
 epoch=1
 pkgdesc="Calamares configuration and branding for The Zone"
