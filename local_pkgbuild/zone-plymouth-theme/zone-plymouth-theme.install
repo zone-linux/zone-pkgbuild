@@ -1,0 +1,15 @@
+post_install() {
+    _zone_splash_default
+}
+
+post_upgrade() {
+    _zone_splash_default
+}
+
+_zone_splash_default() {
+    install -dm755 /etc/plymouth
+    if ! grep -qE '^[[:space:]]*Theme[[:space:]]*=' /etc/plymouth/plymouthd.conf 2>/dev/null; then
+        printf '\n[Daemon]\nTheme=zone-mark\nShowDelay=0\nDeviceTimeout=8\n' \
+            >> /etc/plymouth/plymouthd.conf
+    fi
+}

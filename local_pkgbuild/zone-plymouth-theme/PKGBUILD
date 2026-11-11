@@ -1,0 +1,41 @@
+# Maintainer: Gabriel Matthews <matthewriel63@gmail.com>
+
+pkgname=zone-plymouth-theme
+_pkgname=zone-plymouth-theme
+pkgver=r2.fe039bd
+pkgrel=1
+pkgdesc="Boot splash themes for The Zone"
+arch=('any')
+url="https://github.com/zone-linux/zone-plymouth-theme"
+license=('MIT')
+# plymouth is installed by the ISO profile; keeping it out of depends lets the
+# theme package build on hosts that do not run Plymouth themselves.
+optdepends=('plymouth: display the boot splash')
+makedepends=('git')
+provides=("${pkgname}")
+options=(!strip !debug)
+_srcbase="${ZONE_SRC_BASE:-https://github.com/zone-linux}"
+source=("${pkgname}::git+${_srcbase}/${pkgname}")
+sha256sums=('SKIP')
+install="${pkgname}.install"
+
+pkgver() {
+    cd "${srcdir}/${pkgname}"
+    printf 'r%s.%s' "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+package() {
+    install -dm755 "${pkgdir}/usr/share/plymouth/themes"
+    cp -a "${srcdir}/${_pkgname}/themes/." "${pkgdir}/usr/share/plymouth/themes/"
+
+    install -Dm644 "${srcdir}/${_pkgname}/etc/zone-splash.conf" \
+        "${pkgdir}/etc/plymouth/zone-splash.conf"
+
+    install -Dm644 "${srcdir}/${_pkgname}/initcpio/install/zone-splash" \
+        "${pkgdir}/usr/lib/initcpio/install/zone-splash"
+    install -Dm755 "${srcdir}/${_pkgname}/initcpio/hooks/zone-splash" \
+        "${pkgdir}/usr/lib/initcpio/hooks/zone-splash"
+
+    install -Dm755 "${srcdir}/${_pkgname}/bin/zone-splash-theme" \
+        "${pkgdir}/usr/bin/zone-splash-theme"
+}
