@@ -2,7 +2,7 @@
 
 pkgname=zone-plymouth-theme
 _pkgname=zone-plymouth-theme
-pkgver=r2.fe039bd
+pkgver=r4.4feb23a
 pkgrel=1
 pkgdesc="Boot splash themes for The Zone"
 arch=('any')

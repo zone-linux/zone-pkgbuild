@@ -6,7 +6,7 @@ PKGBUILDs for every Zone Linux custom package, plus the build and publish system
 
 | Directory | Contents |
 |---|---|
-| `local_pkgbuild/` | Zone-specific packages (fonts, XFCE config, wallpapers, sounds, editors) |
+| `local_pkgbuild/` | Zone-specific packages (fonts, XFCE config, wallpapers, sounds, editors, Plymouth themes) |
 | `core_pkgbuild/` | Core system packages (release hooks, GRUB theme, Calamares config) |
 | `3rdparty_pkgbuild/` | AUR packages checked out at build time via `get-pkgs.sh` |
 | `lib/` | Shared build library (`common.sh`, `repo.sh`, `parallel.sh`) |
